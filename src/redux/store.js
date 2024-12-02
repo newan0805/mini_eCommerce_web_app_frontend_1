@@ -11,11 +11,12 @@ const persistConfig = {
   // whitelist: ["cart"],
 };
 
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 const persistedCartReducer = persistReducer(persistConfig, cartReducer);
 
 const store = configureStore({
   reducer: {
-    auth: authReducer,
+    auth: persistedAuthReducer,
     cart: persistedCartReducer,
     products: productsReducer,
   },

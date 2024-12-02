@@ -11,13 +11,21 @@ import {
   Paper,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useAlert } from "../../context/AlertContext";
 
 const Cart = () => {
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  const { triggerAlert } = useAlert();
+
   const handleRemove = (id) => {
-    dispatch(removeItem(id));
+    triggerAlert({
+      type: "error",
+      title: "Product Removed",
+      description: `${id} has been added to your cart.`,
+      onConfirm: () => dispatch(removeItem(id)),
+    });
   };
 
   const handleQuantityChange = (id, quantity) => {
